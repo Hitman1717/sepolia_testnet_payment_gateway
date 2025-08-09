@@ -13,7 +13,10 @@ export default function Marketplace() {
   }, [web3]);
 
   useEffect(() => {
-    const fetchProducts = () => ProductsApi.list().then(setProducts).catch(() => setProducts([]));
+    const fetchProducts = () => ProductsApi.list().then((items) => {
+      // Show only active listings in marketplace
+      setProducts((items || []).filter((p) => p.active === true));
+    }).catch(() => setProducts([]));
     fetchProducts();
     const onChanged = () => fetchProducts();
     window.addEventListener('products:changed', onChanged);
@@ -39,6 +42,10 @@ export default function Marketplace() {
           onchainProductId: product.onchainProductId,
           status: 'paid'
         });
+        // Inform UI to refresh product availability (off-chain state)
+        window.dispatchEvent(new CustomEvent('products:changed'));
+        // Optimistically remove purchased item from current list
+        setProducts((prev) => prev.filter((p) => p._id !== product._id));
         alert('Payment successful');
       }
     } catch (e) {

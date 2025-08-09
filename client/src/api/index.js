@@ -11,6 +11,8 @@ export const ProductsApi = {
   get: (id) => api.get(`/products/${id}`).then(r => r.data),
   create: (payload) => api.post('/products', payload).then(r => r.data),
   update: (id, payload) => api.patch(`/products/${id}`, payload).then(r => r.data),
+  ownedBy: (owner) => api.get('/products/owned/by', { params: { owner } }).then(r => r.data),
+  ownersOf: (id) => api.get(`/products/${id}/owners`).then(r => r.data),
 };
 
 export const OrdersApi = {

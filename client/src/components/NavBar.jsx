@@ -12,6 +12,7 @@ export default function NavBar() {
         <div style={{ display: 'flex', gap: 16 }}>
           <a href="/marketplace">Marketplace</a>
           <a href="/sell">Sell</a>
+          <a href="/my-items">My Items</a>
           <a href="/trace">Trace</a>
           <a href="/login" className="btn secondary" style={{ padding: '6px 10px' }}>Login</a>
         </div>

@@ -4,8 +4,11 @@ Decentralized marketplace for physical and digital items with on-chain traceabil
 
 ### Features
 - Wallet-based login (nonce + signature)
-- Sellers create products with price (ETH) and optional metadata URI
-- Buyers purchase via Marketplace contract `buy(productId)` with exact `priceWei`
+- Seller-defined pricing; buyers pay exact `priceWei`
+- Product lifecycle off-chain and on-chain:
+  - Off-chain: list/unlist, ownership tracked for easy queries (current owner + owner history)
+  - On-chain (optional enhanced contract): auto-ownership transfer on buy; list/unlist via contract
+- Pages: Login, Signup, Marketplace, Sell, Trace, My Items
 - Traceability: append and view on-chain `TraceUpdated` events
 
 ### Prerequisites
@@ -59,6 +62,7 @@ Open: `http://localhost:5173`
 2) Sell: create product (sets price in ETH → stored as Wei; on-chain product created if contract set)
 3) Marketplace: buy (sends exact priceWei to contract `buy(productId)`) 
 4) Trace: append and view trace events for a productId
+5) My Items: see items owned by your wallet (off-chain), list/unlist with price; in Trace page, view on-chain items owned by any address
 
 ### Deploying the contract (Remix)
 - Compile `Marketplace.sol` with 0.8.24

@@ -7,6 +7,8 @@ const productSchema = new mongoose.Schema(
     priceWei: { type: String, required: true },
     isDigital: { type: Boolean, default: false },
     sellerAddress: { type: String, required: true },
+    currentOwner: { type: String, default: '' },
+    owners: { type: [String], default: [] },
     metadataURI: { type: String, default: '' },
     // Optional: link to on-chain productId when created via contract
     onchainProductId: { type: String },

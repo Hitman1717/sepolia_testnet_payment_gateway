@@ -6,6 +6,8 @@ router.post('/', productController.createProduct);
 router.get('/', productController.listProducts);
 router.get('/:id', productController.getProduct);
 router.patch('/:id', productController.updateProduct);
+router.get('/owned/by', productController.listOwned);
+router.get('/:id/owners', productController.listHistory);
 
 // Simple seed endpoint for quick testing (remove in production)
 router.post('/__seed', async (req, res) => {

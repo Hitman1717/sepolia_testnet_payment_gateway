@@ -105,3 +105,22 @@ a:hover { text-decoration: underline; }
 
 .list { display: grid; gap: 16px; }
 
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+}
+
+.sidebar {
+  border-right: 1px solid rgba(255,255,255,0.08);
+  min-height: 100vh;
+  background: rgba(17, 24, 39, 0.5);
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; min-height: auto; }
+}
+
