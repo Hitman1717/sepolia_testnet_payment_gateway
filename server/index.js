@@ -1,26 +1,21 @@
 const express = require('express');
-const mongoose = require('mongoose');
+require('dotenv').config();
 const cors = require('cors');
-const Order = require('./models/Order');
+const { connectMongo } = require('./config/db');
+const orderRoutes = require('./routes/orderRoutes');
+const productRoutes = require('./routes/productRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 app.use(cors());
+app.options(/.*/, cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/eth-gateway', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'));
+connectMongo();
 
-app.post('/api/orders', async (req, res) => {
-  try {
-    const { product, amount, userAddress } = req.body;
-    const order = new Order({ product, amount, userAddress });
-    await order.save();
-    res.status(201).json(order);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to save order' });
-  }
-});
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/auth', authRoutes);
 
-app.listen(5000, () => console.log('Server running on port 5000'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
